@@ -90,6 +90,29 @@
   </section>
 
   <!-- ===========================
+       SEÇÃO 2.5: Q11 (Fase 2)
+  =========================== -->
+  <section id="section-q11" class="section hidden">
+    <div class="container">
+      <p class="bloco-label">Quase lá! Uma última pergunta antes do seu diagnóstico.</p>
+      <h2 class="pergunta-texto">
+        Conta pra gente: qual é a maior dificuldade da sua operação hoje?
+        O que você imagina como solução e como enxerga esse caminho?
+      </h2>
+      <textarea
+        id="q11-input"
+        class="q11-textarea"
+        minlength="20"
+        placeholder="Ex: Nosso maior gargalo é o atendimento ao cliente. Respondemos tarde, perdemos vendas. Imagino que um chatbot poderia ajudar, mas não sei por onde começar..."
+      ></textarea>
+      <p class="q11-counter"><span id="q11-chars">0</span> caracteres (mínimo 20)</p>
+      <button id="btn-q11-avancar" class="btn btn-primary btn-full" disabled>
+        Ver meu diagnóstico →
+      </button>
+    </div>
+  </section>
+
+  <!-- ===========================
        SEÇÃO 3: CAPTURA
   =========================== -->
   <section id="section-captura" class="section hidden">
@@ -214,20 +237,20 @@
         <!-- Caminho 1 -->
         <div class="caminho caminho-primary">
           <div class="caminho-badge">CAMINHO 1</div>
-          <h3 class="caminho-titulo">🤝 A IAEO faz por você</h3>
+          <h3 class="caminho-titulo">🤝 DIAGNÓSTICO IAEO</h3>
           <p class="caminho-desc">
-            Diagnóstico completo conduzido pelo nosso time especializado, com entrega em 90 dias.
-            Ideal para quem quer resultados sem precisar aprender tudo do zero.
+            Nosso time analisa sua operação e identifica <strong>por onde começar com IA</strong>
+            — qual processo tem menor complexidade, maior ROI e onde a implementação faz sentido real.
           </p>
-          <ul class="caminho-itens">
-            <li>✓ Diagnóstico presencial com sua equipe</li>
-            <li>✓ Mapa de automações prioritárias</li>
-            <li>✓ Implementação guiada em 90 dias</li>
-            <li>✓ Suporte dedicado</li>
-          </ul>
-          <p class="caminho-preco">A partir de <strong>R$ 3.000</strong></p>
+          <p class="caminho-desc">
+            Você recebe um estudo de viabilidade completo antes de investir qualquer coisa em tecnologia.
+          </p>
+          <p class="caminho-preco">
+            <strong>A partir de R$ 3.000</strong>
+            <em style="font-size:0.85rem; font-weight:400;"> (varia por porte e complexidade)</em>
+          </p>
           <button id="btn-caminho-1" class="btn btn-primary btn-full">
-            Quero que a IAEO faça por mim →
+            Quero o Diagnóstico IAEO
           </button>
         </div>
 

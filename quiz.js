@@ -4,9 +4,11 @@
    ============================================= */
 
 // ─── CONSTANTES ───────────────────────────────
-const N8N_WEBHOOK_URL = 'https://skiante-dev.iaeo.com.br/webhook/Imersaodesenvolvi';
-const KIWIFY_URL      = 'https://pay.kiwify.com.br/fJCNgjy';
-const YOUTUBE_URL     = 'https://www.youtube.com/@thiagoskiante?sub_confirmation=1';
+const N8N_WEBHOOK_URL  = 'https://skiante-dev.iaeo.com.br/webhook/Imersaodesenvolvi';
+const N8N_INTENCAO_URL = 'https://skiante-dev.iaeo.com.br/webhook/intencao-caminho';
+const KIWIFY_URL       = 'https://pay.kiwify.com.br/fJCNgjy';
+const YOUTUBE_URL      = 'https://www.youtube.com/@thiagoskiante?sub_confirmation=1';
+const Q11_MIN_CHARS    = 20;
 
 // ─── STATE MACHINE ────────────────────────────
 const state = {
@@ -21,7 +23,7 @@ const state = {
 
 function goTo(section) {
   const sections = [
-    'intro', 'quiz', 'captura', 'processando', 'resultado', 'youtube'
+    'intro', 'quiz', 'q11', 'captura', 'processando', 'resultado', 'youtube'
   ];
   sections.forEach(s => {
     const el = document.getElementById(`section-${s}`);
@@ -229,14 +231,14 @@ function selecionarOpcao(pergIdx, opcaoIdx) {
     return;
   }
 
-  // Avança para próxima pergunta ou captura
+  // Avança para próxima pergunta ou Q11 (Fase 2)
   if (pergIdx < PERGUNTAS.length - 1) {
     state.perguntaIdx = pergIdx + 1;
     renderizarPergunta();
   } else {
-    // Quiz completo — calcula trilha e vai para captura
+    // Quiz completo — calcula trilha e vai para Q11 (Fase 2: antes da captura)
     state.trilha = calcularTrilha(state.answers, state.score);
-    goTo('captura');
+    goTo('q11');
   }
 }
 
@@ -353,6 +355,9 @@ function montarPayload(nome, whatsapp, email, empresa, cargo) {
     q9_urgencia:       state.answers.q9  || null,
     q10_investimento:  state.answers.q10 || null,
 
+    // Q11 — campo aberto (Fase 2)
+    q11_contexto: state.answers.q11 || '',
+
     // Score e trilha (internos)
     score:  state.score,
     trilha: state.trilha,
@@ -364,6 +369,30 @@ function montarPayload(nome, whatsapp, email, empresa, cargo) {
     referrer:     document.referrer || null,
     user_agent:   navigator.userAgent || null
   };
+}
+
+// ─── INTENÇÃO DE COMPRA — CAMINHO 1 (Fase 2) ─
+async function registrarIntencaoCaminho1() {
+  const payload = {
+    nome:      state.captura?.nome    || '',
+    whatsapp:  state.captura ? normalizarWhatsApp(state.captura.whatsapp) : '',
+    email:     state.captura?.email   || '',
+    empresa:   state.captura?.empresa || '',
+    score:     state.score,
+    trilha:    state.trilha,
+    acao:      'caminho1_clicado',
+    timestamp: new Date().toISOString()
+  };
+  try {
+    await fetch(N8N_INTENCAO_URL, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload)
+    });
+  } catch (e) {
+    // Silencioso — não bloqueia a UX
+    console.warn('Webhook intenção falhou:', e);
+  }
 }
 
 // ─── ENVIO PARA N8N ───────────────────────────
@@ -401,12 +430,13 @@ function exibirResultado() {
     `Com base nas respostas de ${empresa}, identificamos o estágio atual ` +
     `da sua operação e o caminho mais rápido para implementar IA com resultado real.`;
 
-  // Botão Caminho 1 — exibe modal de confirmação
+  // Botão Caminho 1 — exibe modal de confirmação + dispara webhook de intenção (Fase 2)
   const btnC1 = document.getElementById('btn-caminho-1');
   if (btnC1) {
     btnC1.addEventListener('click', function() {
       const modal = document.getElementById('modal-caminho1');
       if (modal) modal.classList.remove('hidden');
+      registrarIntencaoCaminho1(); // fire-and-forget — sem await, não bloqueia UX
     });
   }
 
@@ -501,6 +531,24 @@ document.addEventListener('DOMContentLoaded', function() {
         v = `(${v}`;
       }
       this.value = v;
+    });
+  }
+
+  // ── Q11 — Lógica de validação (Fase 2) ──────────────────────────────────
+  const q11Input   = document.getElementById('q11-input');
+  const btnQ11     = document.getElementById('btn-q11-avancar');
+  const q11Counter = document.getElementById('q11-chars');
+
+  if (q11Input && btnQ11 && q11Counter) {
+    q11Input.addEventListener('input', function() {
+      const len = q11Input.value.trim().length;
+      q11Counter.textContent = len;
+      btnQ11.disabled = len < Q11_MIN_CHARS;
+    });
+
+    btnQ11.addEventListener('click', function() {
+      state.answers.q11 = q11Input.value.trim();
+      goTo('captura');
     });
   }
 
