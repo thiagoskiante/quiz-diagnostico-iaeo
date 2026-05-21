@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO -->
+  <title>Quiz Diagnóstico IAEO — Descubra se sua empresa está pronta para IA</title>
+  <meta name="description" content="Responda 10 perguntas e descubra em 5 minutos o nível de maturidade da sua empresa para implementar Inteligência Artificial com método e resultado real.">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Quiz Diagnóstico IAEO — Sua empresa está pronta para IA?">
+  <meta property="og:description" content="Responda 10 perguntas e receba seu diagnóstico personalizado em 60 segundos no WhatsApp.">
+  <meta property="og:image" content="/assets/og-image.png">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Quiz Diagnóstico IAEO">
+  <meta name="twitter:description" content="Descubra em 5 minutos se sua empresa está pronta para IA.">
+  <meta name="twitter:image" content="/assets/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===========================
+       SEÇÃO 1: INTRO
+  =========================== -->
+  <section id="section-intro" class="section">
+    <div class="container">
+      <div class="logo-wrapper">
+        <img src="assets/logo-iaeo.png" alt="IAEO" class="logo" onerror="this.style.display='none'">
+      </div>
+
+      <div class="intro-content">
+        <div class="intro-badge">DIAGNÓSTICO GRATUITO</div>
+        <h1 class="intro-title">
+          Descubra em 5 minutos se sua empresa está pronta para IA
+        </h1>
+        <p class="intro-subtitle">
+          Responda 10 perguntas e receba seu diagnóstico personalizado
+        </p>
+
+        <ul class="intro-beneficios">
+          <li>✓ Avaliação do nível de maturidade digital</li>
+          <li>✓ Identificação das oportunidades de IA no seu negócio</li>
+          <li>✓ Resultado personalizado para sua empresa</li>
+        </ul>
+
+        <button class="btn btn-primary btn-large" onclick="goTo('quiz')">
+          Começar diagnóstico
+        </button>
+
+        <p class="intro-tempo">Leva menos de 5 minutos</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================
+       SEÇÃO 2: QUIZ
+  =========================== -->
+  <section id="section-quiz" class="section hidden">
+    <div class="container">
+      <div class="progress-wrapper">
+        <div class="progress-info">
+          <span id="progress-bloco" class="progress-bloco"></span>
+          <span id="progress-texto" class="progress-texto">Pergunta 1 de 10</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div id="progress-bar" class="progress-bar-fill" style="width: 10%"></div>
+        </div>
+      </div>
+
+      <div id="quiz-content" class="quiz-content">
+        <!-- Renderizado dinamicamente pelo quiz.js -->
+      </div>
+
+      <div class="quiz-nav">
+        <button id="btn-voltar" class="btn btn-ghost hidden" onclick="voltarPergunta()">
+          ← Voltar
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===========================
+       SEÇÃO 3: CAPTURA
+  =========================== -->
+  <section id="section-captura" class="section hidden">
+    <div class="container">
+      <div class="captura-header">
+        <div class="loading-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <h2 class="captura-title">Gerando seu diagnóstico personalizado...</h2>
+        <p class="captura-subtitle">
+          Preencha abaixo para receber no WhatsApp em 60 segundos.
+        </p>
+      </div>
+
+      <form id="form-captura" class="form-captura" novalidate>
+        <div class="form-group">
+          <label for="input-nome">Nome completo *</label>
+          <input
+            type="text"
+            id="input-nome"
+            name="nome"
+            placeholder="Seu nome completo"
+            autocomplete="name"
+            required
+          >
+          <span class="field-error" id="erro-nome"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="input-whatsapp">WhatsApp *</label>
+          <input
+            type="tel"
+            id="input-whatsapp"
+            name="whatsapp"
+            placeholder="(11) 99999-9999"
+            autocomplete="tel"
+            required
+          >
+          <span class="field-error" id="erro-whatsapp"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="input-email">E-mail *</label>
+          <input
+            type="email"
+            id="input-email"
+            name="email"
+            placeholder="seu@email.com"
+            autocomplete="email"
+            required
+          >
+          <span class="field-error" id="erro-email"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="input-empresa">Nome da empresa *</label>
+          <input
+            type="text"
+            id="input-empresa"
+            name="empresa"
+            placeholder="Nome da sua empresa"
+            autocomplete="organization"
+            required
+          >
+          <span class="field-error" id="erro-empresa"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="input-cargo">Seu cargo *</label>
+          <input
+            type="text"
+            id="input-cargo"
+            name="cargo"
+            placeholder="Ex: CEO, Diretor, Gerente..."
+            autocomplete="organization-title"
+            required
+          >
+          <span class="field-error" id="erro-cargo"></span>
+        </div>
+
+        <button type="submit" id="btn-submeter" class="btn btn-primary btn-full">
+          Ver meu diagnóstico →
+        </button>
+
+        <p class="form-privacidade">
+          🔒 Seus dados são protegidos. Sem spam.
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===========================
+       SEÇÃO 4: PROCESSANDO
+  =========================== -->
+  <section id="section-processando" class="section hidden">
+    <div class="container container-center">
+      <div class="spinner"></div>
+      <h2 class="processando-title">Analisando seu diagnóstico...</h2>
+      <p class="processando-sub">Isso leva apenas alguns segundos</p>
+    </div>
+  </section>
+
+  <!-- ===========================
+       SEÇÃO 5: RESULTADO
+  =========================== -->
+  <section id="section-resultado" class="section hidden">
+    <div class="container">
+      <div class="resultado-header">
+        <div class="resultado-badge">SEU DIAGNÓSTICO</div>
+        <h2 class="resultado-title" id="resultado-titulo">
+          Seu diagnóstico está pronto!
+        </h2>
+        <p class="resultado-subtitle" id="resultado-subtitulo"></p>
+        <p class="resultado-sintese">
+          Sua empresa já tem o perfil e a maturidade necessários para avançar
+          com inteligência artificial aplicada ao negócio.
+          A questão agora é: <strong>como você quer chegar lá?</strong>
+        </p>
+      </div>
+
+      <div class="caminhos-wrapper">
+        <!-- Caminho 1 -->
+        <div class="caminho caminho-primary">
+          <div class="caminho-badge">CAMINHO 1</div>
+          <h3 class="caminho-titulo">🤝 A IAEO faz por você</h3>
+          <p class="caminho-desc">
+            Diagnóstico completo conduzido pelo nosso time especializado, com entrega em 90 dias.
+            Ideal para quem quer resultados sem precisar aprender tudo do zero.
+          </p>
+          <ul class="caminho-itens">
+            <li>✓ Diagnóstico presencial com sua equipe</li>
+            <li>✓ Mapa de automações prioritárias</li>
+            <li>✓ Implementação guiada em 90 dias</li>
+            <li>✓ Suporte dedicado</li>
+          </ul>
+          <p class="caminho-preco">A partir de <strong>R$ 3.000</strong></p>
+          <button id="btn-caminho-1" class="btn btn-primary btn-full">
+            Quero que a IAEO faça por mim →
+          </button>
+        </div>
+
+        <div class="caminhos-ou">ou</div>
+
+        <!-- Caminho 2 -->
+        <div class="caminho caminho-secondary">
+          <div class="caminho-badge-sec">CAMINHO 2</div>
+          <h3 class="caminho-titulo">🧭 Você faz por conta própria</h3>
+          <p class="caminho-desc">
+            Auto-Diagnóstico com o mapa completo para você implementar no seu ritmo,
+            com toda a metodologia IAEO.
+          </p>
+          <ul class="caminho-itens">
+            <li>✓ Metodologia completa em PDF</li>
+            <li>✓ Mapa de implementação passo a passo</li>
+            <li>✓ Templates e checklists</li>
+            <li>✓ Acesso vitalício</li>
+          </ul>
+          <p class="caminho-preco">Apenas <strong>R$ 97</strong></p>
+          <button id="btn-caminho-2" class="btn btn-secondary btn-full">
+            Quero fazer eu mesmo — R$97 →
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal de confirmação Caminho 1 -->
+      <div id="modal-caminho1" class="modal-overlay hidden">
+        <div class="modal-box">
+          <p>✅ Ótimo! Nossa equipe entrará em contato em breve pelo WhatsApp.</p>
+          <p>Fique de olho nas mensagens!</p>
+          <button id="btn-fechar-modal" class="btn btn-primary">Entendido!</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===========================
+       SEÇÃO 6: YOUTUBE (Colaborador)
+  =========================== -->
+  <section id="section-youtube" class="section hidden">
+    <div class="container container-center">
+      <div class="youtube-icon">▶</div>
+      <h2 class="youtube-title">Que bom ter você aqui!</h2>
+      <p class="youtube-desc">
+        Preparamos conteúdo especial no YouTube para você entender como a IA pode transformar sua área.
+        Veja agora!
+      </p>
+      <button
+        id="btn-youtube"
+        class="btn btn-primary btn-large"
+      >
+        ▶ Assistir no YouTube
+      </button>
+    </div>
+  </section>
+
+  <script src="quiz.js" defer></script>
+</body>
+</html>
