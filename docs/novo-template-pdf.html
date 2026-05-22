@@ -15,7 +15,6 @@
     line-height: 1.6;
   }
 
-  /* ====== CAPA ====== */
   .capa {
     background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
     color: white;
@@ -23,28 +22,6 @@
     min-height: 260px;
     position: relative;
     overflow: hidden;
-  }
-
-  .capa::before {
-    content: '';
-    position: absolute;
-    top: -80px;
-    right: -80px;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: rgba(100, 220, 180, 0.08);
-  }
-
-  .capa::after {
-    content: '';
-    position: absolute;
-    bottom: -60px;
-    left: -60px;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background: rgba(100, 180, 255, 0.06);
   }
 
   .capa-logo {
@@ -64,7 +41,6 @@
     font-weight: 600;
     letter-spacing: 3px;
     text-transform: uppercase;
-    opacity: 0.9;
     color: #64dcb4;
   }
 
@@ -83,9 +59,9 @@
   }
 
   .capa-titulo {
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 800;
-    line-height: 1.2;
+    line-height: 1.25;
     margin-bottom: 16px;
     max-width: 680px;
   }
@@ -97,29 +73,20 @@
   }
 
   .capa-empresa {
-    margin-top: 24px;
+    margin-top: 28px;
     font-size: 13px;
     opacity: 0.6;
     border-top: 1px solid rgba(255,255,255,0.15);
     padding-top: 20px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
   }
 
-  .capa-empresa strong {
-    color: rgba(255,255,255,0.9);
-    font-weight: 600;
-  }
+  .capa-empresa strong { color: rgba(255,255,255,0.9); font-weight: 600; }
 
-  /* ====== BODY ====== */
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 50px;
-  }
+  .container { padding: 0 50px; }
 
-  /* ====== SEÇÃO RESUMO ====== */
+  /* RESUMO */
   .resumo-section {
     background: linear-gradient(135deg, #f0fdf8, #e8f5e9);
     border-left: 5px solid #10b981;
@@ -143,12 +110,8 @@
     margin-bottom: 12px;
   }
 
-  .resumo-section p:last-child { margin-bottom: 0; }
-
-  /* ====== SECTION HEADER ====== */
-  .section {
-    margin: 40px 0;
-  }
+  /* SECTION */
+  .section { margin: 40px 0; }
 
   .section-label {
     display: flex;
@@ -171,17 +134,10 @@
     flex-shrink: 0;
   }
 
-  .section-title {
-    font-size: 18px;
-    font-weight: 700;
-    color: #1a1a2e;
-  }
+  .section-title { font-size: 18px; font-weight: 700; color: #1a1a2e; }
+  .section-title span { color: #667eea; }
 
-  .section-title span {
-    color: #667eea;
-  }
-
-  /* ====== DIAGNÓSTICO ====== */
+  /* DIAGNÓSTICO */
   .diagnostico-box {
     background: #fafafa;
     border: 1px solid #e5e7eb;
@@ -199,33 +155,33 @@
 
   .diagnostico-box p:last-child { margin-bottom: 0; }
 
-  /* ====== OPORTUNIDADES ====== */
+  /* OPORTUNIDADES */
   .oportunidade-card {
     background: white;
     border: 1px solid #e5e7eb;
     border-radius: 12px;
-    padding: 20px 24px;
-    margin-bottom: 14px;
+    padding: 18px 22px;
+    margin-bottom: 12px;
     display: flex;
-    gap: 16px;
+    gap: 14px;
     align-items: flex-start;
     box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     page-break-inside: avoid;
   }
 
   .oportunidade-numero {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     background: linear-gradient(135deg, #10b981, #059669);
     color: white;
-    border-radius: 8px;
+    border-radius: 7px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
     flex-shrink: 0;
-    margin-top: 2px;
+    margin-top: 1px;
   }
 
   .oportunidade-texto {
@@ -235,7 +191,7 @@
     flex: 1;
   }
 
-  /* ====== CUSTO DA INAÇÃO ====== */
+  /* CUSTO DA INAÇÃO */
   .custo-box {
     background: linear-gradient(135deg, #fef3c7, #fde68a);
     border-left: 5px solid #f59e0b;
@@ -245,16 +201,13 @@
     page-break-inside: avoid;
   }
 
-  .custo-box .custo-title {
+  .custo-title {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: #92400e;
     margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
   }
 
   .custo-box p {
@@ -264,13 +217,13 @@
     font-weight: 500;
   }
 
-  /* ====== POR ONDE COMEÇAR ====== */
+  /* POR ONDE COMEÇAR */
   .passo-box {
     background: linear-gradient(135deg, #0f0c29, #302b63);
     color: white;
     border-radius: 16px;
     padding: 36px 40px;
-    margin: 32px 0;
+    margin: 0 0 40px;
     page-break-inside: avoid;
   }
 
@@ -281,9 +234,6 @@
     text-transform: uppercase;
     color: #64dcb4;
     margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
   }
 
   .passo-paragrafo {
@@ -294,23 +244,16 @@
     text-align: justify;
   }
 
-  .passo-paragrafo:last-child { margin-bottom: 0; }
-
-  /* ====== RODAPÉ CTA ====== */
+  /* CTA */
   .cta-section {
     background: linear-gradient(135deg, #10b981, #059669);
     color: white;
     padding: 40px 50px;
     text-align: center;
-    margin-top: 50px;
     page-break-inside: avoid;
   }
 
-  .cta-section h3 {
-    font-size: 22px;
-    font-weight: 800;
-    margin-bottom: 12px;
-  }
+  .cta-section h3 { font-size: 22px; font-weight: 800; margin-bottom: 12px; }
 
   .cta-section p {
     font-size: 14px;
@@ -327,45 +270,35 @@
     font-weight: 800;
     padding: 14px 32px;
     border-radius: 50px;
-    text-decoration: none;
     letter-spacing: 1px;
   }
 
   .cta-link {
     display: inline-block;
-    margin-top: 20px;
+    margin-top: 16px;
     background: rgba(255,255,255,0.15);
     color: white;
     font-size: 13px;
     font-weight: 600;
     padding: 10px 24px;
     border-radius: 50px;
-    text-decoration: none;
     border: 1px solid rgba(255,255,255,0.4);
+    text-decoration: none;
   }
 
   .rodape {
     background: #1a1a2e;
-    color: rgba(255,255,255,0.5);
+    color: rgba(255,255,255,0.45);
     text-align: center;
-    padding: 20px;
+    padding: 18px;
     font-size: 11px;
     letter-spacing: 1px;
-  }
-
-  /* Quebra de parágrafo (split por \n) */
-  .multi-paragraph p {
-    margin-bottom: 14px;
-    font-size: 13.5px;
-    line-height: 1.8;
-    color: rgba(255,255,255,0.88);
-    text-align: justify;
   }
 </style>
 </head>
 <body>
 
-<!-- ===== CAPA ===== -->
+<!-- CAPA -->
 <div class="capa">
   <div class="capa-logo">
     <img src="{{ logo_url }}" alt="IAEO" onerror="this.style.display='none'">
@@ -379,60 +312,32 @@
 
   <div class="capa-empresa">
     <span><strong>{{ empresa }}</strong> · {{ data }}</span>
-    <span>Confidencial — Uso interno</span>
+    <span>Confidencial</span>
   </div>
 </div>
 
 <div class="container">
 
-  <!-- ===== RESUMO EXECUTIVO ===== -->
-  {% if resumo_executivo %}
+  <!-- RESUMO EXECUTIVO -->
+  {% if resumo_executivo != blank %}
   <div class="resumo-section">
     <h2>Resumo Executivo</h2>
-    {% set paragrafos = resumo_executivo | split("\n\n") %}
-    {% for p in paragrafos %}
-      {% if p | trim %}
-        <p>{{ p | trim }}</p>
-      {% endif %}
-    {% endfor %}
-    {% if paragrafos.length == 0 or resumo_executivo | split("\n\n") | length <= 1 %}
-      {% set paragrafos2 = resumo_executivo | split("\n") %}
-      {% for p in paragrafos2 %}
-        {% if p | trim %}
-          <p>{{ p | trim }}</p>
-        {% endif %}
-      {% endfor %}
-    {% endif %}
+    <p>{{ resumo_executivo | newline_to_br }}</p>
   </div>
   {% endif %}
 
-  <!-- ===== DIAGNÓSTICO ===== -->
+  <!-- DIAGNÓSTICO -->
   <div class="section">
     <div class="section-label">
       <div class="section-number">1</div>
       <div class="section-title">Diagnóstico da <span>Situação Atual</span></div>
     </div>
-
     <div class="diagnostico-box">
-      {% set diag_paragrafos = diagnostico | split("\n\n") %}
-      {% if diag_paragrafos.length > 1 %}
-        {% for p in diag_paragrafos %}
-          {% if p | trim %}
-            <p>{{ p | trim }}</p>
-          {% endif %}
-        {% endfor %}
-      {% else %}
-        {% set diag_paragrafos2 = diagnostico | split("\n") %}
-        {% for p in diag_paragrafos2 %}
-          {% if p | trim %}
-            <p>{{ p | trim }}</p>
-          {% endif %}
-        {% endfor %}
-      {% endif %}
+      <p>{{ diagnostico | newline_to_br }}</p>
     </div>
   </div>
 
-  <!-- ===== OPORTUNIDADES ===== -->
+  <!-- OPORTUNIDADES -->
   <div class="section">
     <div class="section-label">
       <div class="section-number">2</div>
@@ -441,25 +346,23 @@
 
     {% for op in oportunidades %}
     <div class="oportunidade-card">
-      <div class="oportunidade-numero">{{ loop.index }}</div>
+      <div class="oportunidade-numero">{{ forloop.index }}</div>
       <div class="oportunidade-texto">{{ op }}</div>
     </div>
     {% endfor %}
   </div>
 
-  <!-- ===== CUSTO DA INAÇÃO ===== -->
-  {% if custo_inacao %}
+  <!-- CUSTO DA INAÇÃO -->
+  {% if custo_inacao != blank %}
   <div class="custo-box">
-    <div class="custo-title">
-      ⚠️ Atenção: O Custo de Não Agir
-    </div>
+    <div class="custo-title">⚠️ Atenção: O Custo de Não Agir</div>
     <p>{{ custo_inacao }}</p>
   </div>
   {% endif %}
 
 </div>
 
-<!-- ===== POR ONDE COMEÇAR ===== -->
+<!-- POR ONDE COMEÇAR -->
 <div style="padding: 0 50px;">
   <div class="section">
     <div class="section-label">
@@ -471,33 +374,19 @@
 
 <div class="passo-box" style="margin: 0 50px 40px;">
   <h3>🚀 Plano de Ação Recomendado</h3>
-  {% set passo_paragrafos = por_onde_comecar | split("\n\n") %}
-  {% if passo_paragrafos.length > 1 %}
-    {% for p in passo_paragrafos %}
-      {% if p | trim %}
-        <div class="passo-paragrafo">{{ p | trim }}</div>
-      {% endif %}
-    {% endfor %}
-  {% else %}
-    {% set passo_paragrafos2 = por_onde_comecar | split("\n") %}
-    {% for p in passo_paragrafos2 %}
-      {% if p | trim %}
-        <div class="passo-paragrafo">{{ p | trim }}</div>
-      {% endif %}
-    {% endfor %}
-  {% endif %}
+  <div class="passo-paragrafo">{{ por_onde_comecar | newline_to_br }}</div>
 </div>
 
-<!-- ===== CTA ===== -->
+<!-- CTA -->
 <div class="cta-section">
   <h3>Pronto para dar o próximo passo?</h3>
-  <p>Nosso consultor vai entrar em contato para apresentar os próximos passos.<br>
+  <p>Nosso consultor vai entrar em contato pessoalmente.<br>
   Você também pode iniciar uma conversa agora mesmo:</p>
 
   <div class="cta-whatsapp">{{ whatsapp_rafa }}</div>
 
-  {% if kiwify_url %}
-  <br>
+  {% if kiwify_url != blank %}
+  <br><br>
   <a href="{{ kiwify_url }}" class="cta-link">Garantir minha vaga no Diagnóstico →</a>
   {% endif %}
 </div>
