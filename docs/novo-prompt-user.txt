@@ -1,0 +1,33 @@
+DADOS DO LEAD:
+- Nome: {{ $('Normalizar Dados').item.json.nome_primeiro }}
+- Empresa: {{ $('Normalizar Dados').item.json.empresa }}
+- Setor de atuação: {{ $('Normalizar Dados').item.json.q4_setor }}
+- Cargo: {{ $('Normalizar Dados').item.json.cargo }}
+- Principal dor operacional: {{ $('Normalizar Dados').item.json.q5_dor }}
+- Experiência com IA: {{ $('Normalizar Dados').item.json.q6_experiencia_ia }}
+- Sistemas que usa hoje: {{ $('Normalizar Dados').item.json.q7_sistemas }}
+- Como toma decisões: {{ $('Normalizar Dados').item.json.q8_decisao }}
+- Urgência declarada: {{ $('Normalizar Dados').item.json.q9_urgencia }}
+- Disposição de investimento: {{ $('Normalizar Dados').item.json.q10_investimento }}
+- Contexto com as palavras do lead: {{ $('Normalizar Dados').item.json.q11_contexto }}
+
+Gere o Relatório de Diagnóstico de Oportunidades em IA com exatamente esta estrutura JSON:
+{
+  "titulo_personalizado": "Título impactante para o relatório com o setor e a dor principal. Ex: 'Diagnóstico de IA para Consultoria: Como [empresa] pode economizar 20h/semana com automação inteligente'. Máximo 15 palavras.",
+
+  "resumo_executivo": "2 parágrafos. Parágrafo 1: síntese direta do que identificamos no perfil do lead - como um consultor experiente que entendeu o negócio. Use as palavras do lead. Parágrafo 2: declare o impacto potencial em números concretos (use os benchmarks do setor) e por que esse é o momento certo para agir.",
+
+  "diagnostico": "3 parágrafos densos. Parágrafo 1: descreva a realidade operacional atual da empresa com base no setor e porte - cite os sistemas que usam hoje e o que isso significa em termos de limitações e gargalos. Parágrafo 2: aprofunde a dor principal usando as palavras exatas do lead - calcule o custo concreto dessa dor (tempo perdido x valor hora x meses = prejuízo anual estimado). Mostre o que a empresa está perdendo para a concorrência. Parágrafo 3: o risco de implementar IA sem diagnóstico - empresas do setor que compraram ferramentas de IA genéricas sem mapear processos gastaram entre R$ 50.000 e R$ 200.000 e abandonaram em menos de um ano. O problema nunca é a tecnologia - é não saber onde e como aplicar. O Diagnóstico de Viabilidade existe para eliminar esse risco.",
+
+  "oportunidades": [
+    "Oportunidade 1 - [nome do processo específico para o setor]: [descrição de como IA se aplica nesse processo para esse setor específico]. Impacto estimado: [ROI concreto - ex: redução de X horas/semana ou economia de R$ Y/mês]. Complexidade de implementação: Baixa.",
+    "Oportunidade 2 com mesmo nível de detalhe. Complexidade: Baixa/Média.",
+    "Oportunidade 3 com mesmo nível de detalhe. Complexidade: Média.",
+    "Oportunidade 4 com mesmo nível de detalhe. Complexidade: Média/Alta.",
+    "Oportunidade 5 - mencione que estas são estimativas preliminares baseadas em benchmarks de mercado para o setor, e que o Diagnóstico de Viabilidade vai revelar o mapa completo com ROI calculado especificamente para a realidade da empresa, priorizadas por retorno e complexidade."
+  ],
+
+  "custo_inacao": "1 parágrafo direto e impactante. Calcule o custo mensal de NÃO agir. Use os dados do lead: se a dor principal é X processo que toma Y horas/semana, a empresa está desperdiçando Z horas/mês = R$ W de custo de oportunidade por mês. Adicione: enquanto adia, concorrentes do mesmo setor já estão implementando IA e ganhando vantagem competitiva. Termine com: a janela de diferenciação está se fechando.",
+
+  "por_onde_comecar": "3 parágrafos obrigatórios. PARÁGRAFO 1 - Ponto de entrada prioritário: qual das oportunidades tem maior ROI combinado com menor resistência de implementação para esse setor e porte. Explique o raciocínio: por que esse processo específico, qual resultado esperado em quanto tempo, por que começar por ele gera confiança interna para os próximos projetos. PARÁGRAFO 2 - Como funciona o Diagnóstico de Viabilidade: escreva exatamente assim: 'O que a IAEO faz no Diagnóstico de Viabilidade: entra dentro da empresa (presencialmente ou online) e mapeia todos os processos - do operacional ao gerencial. Para cada processo, qualificamos se IA faz sentido técnico e financeiro, classificamos o grau de complexidade (baixa, média, alta) e calculamos o ROI potencial real para a realidade da empresa. Com isso, definimos a ordem exata de implementação para o maior resultado no menor tempo. Ao final, [nome do lead] recebe: onde investir, quando começar, como fazer, o escopo técnico completo e uma proposta de execução pela IAEO. Tudo mastigado. Investimento a partir de R$ 3.000.' PARÁGRAFO 3 - CTA pessoal: mencione que o Rafa vai entrar em contato pessoalmente para apresentar os próximos passos e tirar dúvidas. Reforce que o Diagnóstico é o passo mais inteligente antes de qualquer contratação de tecnologia de IA."
+}

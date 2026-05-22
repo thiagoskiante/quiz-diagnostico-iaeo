@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Fix — whatsapp_rafa no n8n</title>
+  <style>
+    body { font-family: monospace; background: #0d0d0d; color: #e0e0e0; padding: 40px; }
+    button { background: #6C3FE8; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-size: 1rem; margin: 8px 0; }
+    pre { background: #161625; padding: 16px; border-radius: 8px; overflow-x: auto; white-space: pre-wrap; font-size: 0.8rem; }
+    .ok { color: #00D4AA; } .err { color: #ff4d6d; }
+  </style>
+</head>
+<body>
+  <h2>🔧 Fix — whatsapp_rafa + template PDFMonkey</h2>
+  <button onclick="fixN8n()">▶ Aplicar número correto do Rafa no n8n</button>
+  <button onclick="getTemplate()">📄 Buscar HTML do template PDFMonkey</button>
+  <pre id="log">Aguardando...</pre>
+
+  <script>
+    const N8N_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmOWViYmM3Yy1lN2FlLTQwMzktOGRkOS0wOWRmYjdmZmVlYzIiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzc5Mzg5MjQ0LCJleHAiOjE3ODE5MjgwMDB9.-ECAKkbwrRSk6joQi7_ajNYk80BBZTNJof_aAdW6-mg';
+    const WORKFLOW_ID = 'sYG25wkMr9JOAVWD';
+    const PDFMONKEY_KEY = 'SSfXZLjGc4Mamfzs2MjvTaGj9ax59j4z';
+    const TEMPLATE_ID = '7437C9F4-94C8-4985-ACEB-D90BAC8D2A50';
+    const NUMERO_RAFA = '+55 41 3798-9777';
+
+    function log(msg, cls='') {
+      document.getElementById('log').innerHTML += `\n<span class="${cls}">${msg}</span>`;
+    }
+
+    async function fixN8n() {
+      document.getElementById('log').innerHTML = '';
+      log('🔄 Buscando workflow do n8n...');
+      try {
+        const resp = await fetch(`https://skiante-dev.iaeo.com.br/api/v1/workflows/${WORKFLOW_ID}`, {
+          headers: { 'X-N8N-API-KEY': N8N_KEY }
+        });
+        const wf = await resp.json();
+        log('✅ Workflow carregado — ' + wf.nodes.length + ' nós', 'ok');
+
+        // Achar nó PDF 5a
+        const pdfNode = wf.nodes.find(n => n.id === 'pdf-07');
+        if (!pdfNode) { log('❌ Nó pdf-07 não encontrado', 'err'); return; }
+
+        const oldBody = pdfNode.parameters.jsonBody;
+        log('📄 jsonBody atual contém: ' + (oldBody.includes('99999') ? '"41 99999-9999" (ERRADO)' : 'número já atualizado'));
+
+        // Substituir número
+        const newBody = oldBody.replace(/"whatsapp_rafa": "[^"]*"/g, `"whatsapp_rafa": "${NUMERO_RAFA}"`);
+        pdfNode.parameters.jsonBody = newBody;
+        log('🔧 Número atualizado para: ' + NUMERO_RAFA);
+
+        // PUT workflow
+        const putResp = await fetch(`https://skiante-dev.iaeo.com.br/api/v1/workflows/${WORKFLOW_ID}`, {
+          method: 'PUT',
+          headers: {
+            'X-N8N-API-KEY': N8N_KEY,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name: wf.name,
+            nodes: wf.nodes,
+            connections: wf.connections,
+            settings: wf.settings,
+            staticData: wf.staticData
+          })
+        });
+        const result = await putResp.json();
+        if (putResp.ok) {
+          log('✅ Workflow salvo com sucesso! Status: ' + putResp.status, 'ok');
+          log('✅ whatsapp_rafa agora é: ' + NUMERO_RAFA, 'ok');
+        } else {
+          log('❌ Erro ao salvar: ' + JSON.stringify(result), 'err');
+        }
+      } catch(e) {
+        log('❌ Erro: ' + e.message, 'err');
+      }
+    }
+
+    async function getTemplate() {
+      document.getElementById('log').innerHTML = '';
+      log('🔄 Buscando template do PDFMonkey...');
+      try {
+        const resp = await fetch(`https://api.pdfmonkey.io/api/v1/document_templates/${TEMPLATE_ID}`, {
+          headers: { 'Authorization': 'Bearer ' + PDFMONKEY_KEY }
+        });
+        const data = await resp.json();
+        const body = data.document_template?.body || '';
+        window._templateBody = body;
+        log('✅ Template carregado — ' + body.length + ' chars', 'ok');
+
+        // Achar seção próximo passo
+        const idx = body.search(/[Pp]r.ximo/);
+        const section = body.substring(Math.max(0, idx - 200), idx + 3000);
+        log('\n📄 SEÇÃO "PRÓXIMO PASSO" DO TEMPLATE:\n');
+        log(section.replace(/</g,'&lt;').replace(/>/g,'&gt;'));
+      } catch(e) {
+        log('❌ Erro: ' + e.message, 'err');
+      }
+    }
+  </script>
+</body>
+</html>
