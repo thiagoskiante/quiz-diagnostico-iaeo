@@ -7,7 +7,7 @@
 const N8N_WEBHOOK_URL  = 'https://skiante-dev.iaeo.com.br/webhook/Imersaodesenvolvi';
 const N8N_INTENCAO_URL = 'https://skiante-dev.iaeo.com.br/webhook/intencao-caminho';
 const KIWIFY_URL       = 'https://pay.kiwify.com.br/fJCNgjy';
-const SALES_PAGE_URL   = 'https://deploy-lemon-alpha.vercel.app'; // Sales page v6 — lead quente pós-quiz
+const SALES_PAGE_URL   = 'https://deploy-lemon-alpha.vercel.app'; // Sales page v7 premium — identidade IAEO
 const WHATSAPP_URL     = 'https://wa.me/554137952570?text=Ol%C3%A1!%20Vim%20pelo%20Quiz%20IAEO%20e%20tenho%20interesse%20no%20Diagn%C3%B3stico';
 const YOUTUBE_URL      = 'https://www.youtube.com/@thiagoskiante?sub_confirmation=1';
 const Q11_MIN_CHARS    = 20;
