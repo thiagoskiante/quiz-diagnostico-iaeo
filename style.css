@@ -859,9 +859,15 @@ body {
 
 .niveis-wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   margin-top: 8px;
+}
+
+@media (max-width: 900px) {
+  .niveis-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .nivel-card {
@@ -939,3 +945,4 @@ body {
     grid-template-columns: 1fr;
   }
 }
+

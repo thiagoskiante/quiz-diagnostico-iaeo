@@ -614,9 +614,15 @@ function exibirResultado() {
 }
 
 // ─── EXIBIÇÃO DO RESULTADO v2 (3 caminhos abertos) ───────────────────────────
+function capitalizarPalavras(str) {
+  return str.replace(/\b\w/g, l => l.toUpperCase());
+}
+
 function exibirResultadoV2() {
   const nome    = state.captura?.nome?.split(' ')[0] || 'você';
-  const empresa = state.captura?.empresa || 'sua empresa';
+  const empresaRaw = state.captura?.empresa || 'sua empresa';
+  // Capitaliza cada palavra: "iaeo teste" → "Iaeo Teste", "IAEO" → "IAEO"
+  const empresa = capitalizarPalavras(empresaRaw.toLowerCase());
   const resultado = calcularNivelRecomendado(state.answers?.q1);
 
   // 1. Título personalizado com nova frase-bandeira
