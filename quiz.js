@@ -43,112 +43,120 @@ function goTo(section) {
 
 // ─── DADOS DAS PERGUNTAS ──────────────────────
 const PERGUNTAS = [
+  // ── BLOCO 1: PERFIL ───────────────────────────────────────
   {
     id: 'q1',
-    bloco: 'Qualificação de Porte',
-    texto: 'Qual o faturamento médio mensal da sua empresa?',
+    bloco: 'Seu perfil',
+    texto: 'Qual é o seu papel hoje?',
+    especial: 'colaborador-redirect',
     opcoes: [
-      { texto: 'Até R$ 100 mil/mês',        pontos: 5  },
-      { texto: 'De R$ 100k a R$ 500k/mês',  pontos: 15 },
-      { texto: 'De R$ 500k a R$ 1M/mês',    pontos: 20 },
-      { texto: 'Acima de R$ 1M/mês',         pontos: 30 }
+      { texto: 'Sou dono ou sócio da empresa',              pontos: 15, redirect: false },
+      { texto: 'Sou gestor ou diretor de uma área',         pontos: 10, redirect: false },
+      { texto: 'Sou colaborador querendo aprender',         pontos: 0,  redirect: true  },
+      { texto: 'Estou começando meu negócio',               pontos: 8,  redirect: false }
     ]
   },
   {
     id: 'q2',
-    bloco: 'Qualificação de Porte',
-    texto: 'Quantos colaboradores trabalham na sua empresa?',
+    bloco: 'Seu perfil',
+    texto: 'Qual é o principal setor do seu negócio?',
     opcoes: [
-      { texto: '1 a 10',        pontos: 5  },
-      { texto: '11 a 50',       pontos: 15 },
-      { texto: '51 a 200',      pontos: 20 },
-      { texto: 'Mais de 200',   pontos: 25 }
+      { texto: 'Serviços / Consultoria',       pontos: 0 },
+      { texto: 'Saúde / Clínica',              pontos: 0 },
+      { texto: 'Varejo / E-commerce',          pontos: 0 },
+      { texto: 'Indústria / Manufatura',       pontos: 0 },
+      { texto: 'Educação / Infoproduto',       pontos: 0 },
+      { texto: 'Logística / Transporte',       pontos: 0 },
+      { texto: 'Outro',                        pontos: 0 }
     ]
   },
   {
     id: 'q3',
-    bloco: 'Qualificação de Porte',
-    texto: 'Qual é seu cargo na empresa?',
-    especial: 'colaborador-redirect',
+    bloco: 'Seu perfil',
+    texto: 'Quantas pessoas trabalham na sua empresa?',
     opcoes: [
-      { texto: 'Sou o dono ou sócio',              pontos: 15, redirect: false },
-      { texto: 'Sou diretor ou gestor',             pontos: 10, redirect: false },
-      { texto: 'Sou colaborador ou analista',       pontos: 0,  redirect: true  }
+      { texto: 'Só eu (solopreneur)',    pontos: 5  },
+      { texto: '2 a 10 pessoas',        pontos: 10 },
+      { texto: '11 a 50 pessoas',       pontos: 20 },
+      { texto: 'Mais de 50',            pontos: 25 }
     ]
   },
+
+  // ── BLOCO 2: DOR ─────────────────────────────────────────
   {
     id: 'q4',
-    bloco: 'Setor e Dor Principal',
-    texto: 'Em qual setor sua empresa atua?',
+    bloco: 'Onde está a perda',
+    texto: 'O que mais consome tempo da sua equipe hoje?',
     opcoes: [
-      { texto: 'Construção Civil e Engenharia', pontos: 0 },
-      { texto: 'Indústria e Manufatura',        pontos: 0 },
-      { texto: 'Logística e Transporte',        pontos: 0 },
-      { texto: 'Serviços B2B',                  pontos: 0 },
-      { texto: 'Saúde e Clínicas',              pontos: 0 },
-      { texto: 'Varejo e Distribuição',         pontos: 0 },
-      { texto: 'Tecnologia e Software',         pontos: 0 },
-      { texto: 'Outro',                         pontos: 0 }
+      { texto: 'Atendimento e respostas repetitivas',          pontos: 0 },
+      { texto: 'Relatórios, planilhas e controles manuais',    pontos: 0 },
+      { texto: 'Captação e qualificação de leads',             pontos: 0 },
+      { texto: 'Operação e processos internos',                pontos: 0 }
     ]
   },
   {
     id: 'q5',
-    bloco: 'Setor e Dor Principal',
-    texto: 'Qual processo da sua empresa mais consome tempo e gera retrabalho hoje?',
+    bloco: 'Onde está a perda',
+    texto: 'Sua empresa já perdeu venda ou cliente por falta de agilidade?',
     opcoes: [
-      { texto: 'Atendimento ao cliente',                         pontos: 0 },
-      { texto: 'Vendas e qualificação de leads',                 pontos: 0 },
-      { texto: 'Cobrança e financeiro',                          pontos: 0 },
-      { texto: 'Operação interna (pedidos, produção, entregas)', pontos: 0 },
-      { texto: 'Gestão de dados e relatórios',                   pontos: 0 }
+      { texto: 'Sim, frequentemente',      pontos: 25 },
+      { texto: 'Às vezes acontece',        pontos: 20 },
+      { texto: 'Raramente',                pontos: 10 },
+      { texto: 'Não consigo medir isso',   pontos: 5  }
     ]
   },
   {
     id: 'q6',
-    bloco: 'Maturidade Digital',
-    texto: 'Sua empresa já tentou implementar IA ou automação?',
+    bloco: 'Onde está a perda',
+    texto: 'Como você toma decisões no negócio hoje?',
     opcoes: [
-      { texto: 'Nunca tentamos',                                    pontos: 10 },
-      { texto: 'Já tentamos por conta própria, resultado fraco',   pontos: 20 },
-      { texto: 'Contratamos alguém, ficou no meio do caminho',     pontos: 25 },
-      { texto: 'Temos automações funcionando',                      pontos: 15 }
+      { texto: 'Na intuição e experiência',             pontos: 5  },
+      { texto: 'Com dados mas de forma manual',         pontos: 10 },
+      { texto: 'Com dados em tempo real',               pontos: 20 },
+      { texto: 'Não tenho dados suficientes',           pontos: 8  }
     ]
   },
+
+  // ── BLOCO 3: MATURIDADE COM IA ───────────────────────────
   {
     id: 'q7',
-    bloco: 'Maturidade Digital',
-    texto: 'Sua empresa usa ERP, CRM ou sistema centralizado de dados?',
+    bloco: 'Sua relação com IA',
+    texto: 'Qual é sua experiência com IA hoje?',
     opcoes: [
-      { texto: 'Não, usamos planilha e WhatsApp',  pontos: 5  },
-      { texto: 'Sim, mas mal aproveitado',          pontos: 15 },
-      { texto: 'Sim, e bem usado',                  pontos: 20 }
+      { texto: 'Nunca usei no negócio',                          pontos: 10 },
+      { texto: 'Testei o ChatGPT mas não apliquei de verdade',   pontos: 20 },
+      { texto: 'Uso algumas ferramentas pontualmente',           pontos: 15 },
+      { texto: 'Já tenho algo implementado mas quero mais',      pontos: 25 }
     ]
   },
   {
     id: 'q8',
-    bloco: 'Maturidade Digital',
-    texto: 'Como você toma decisões estratégicas hoje?',
+    bloco: 'Sua relação com IA',
+    texto: 'O que te trava de implementar IA hoje?',
     opcoes: [
-      { texto: 'Intuição e experiência',              pontos: 5  },
-      { texto: 'Relatórios manuais semanais',         pontos: 10 },
-      { texto: 'Dashboards e dados em tempo real',    pontos: 20 }
+      { texto: 'Não sei por onde começar',                pontos: 0 },
+      { texto: 'Tenho medo de gastar e não usar',         pontos: 0 },
+      { texto: 'Falta tempo da equipe',                   pontos: 0 },
+      { texto: 'Não sei se faz sentido pro meu negócio',  pontos: 0 }
     ]
   },
+
+  // ── BLOCO 4: INTENÇÃO ────────────────────────────────────
   {
     id: 'q9',
-    bloco: 'Urgência e Investimento',
-    texto: 'Em quanto tempo você quer ver IA funcionando na sua empresa?',
+    bloco: 'Próximo passo',
+    texto: 'Se você soubesse onde IA gera retorno, o que faria?',
     opcoes: [
-      { texto: 'Já comecei a buscar, é urgente',     pontos: 25 },
-      { texto: 'Próximos 3 meses',                   pontos: 20 },
-      { texto: 'Próximos 6 meses',                   pontos: 10 },
-      { texto: 'Estou pesquisando, sem prazo',        pontos: 5  }
+      { texto: 'Tentaria implementar sozinho',         pontos: 10 },
+      { texto: 'Contrataria alguém pra fazer',         pontos: 25 },
+      { texto: 'Quero entender antes de decidir',      pontos: 15 },
+      { texto: 'Dependeria do investimento',           pontos: 20 }
     ]
   },
   {
     id: 'q10',
-    bloco: 'Urgência e Investimento',
-    texto: 'Quanto sua empresa investiria para ter IA aplicada com método em 90 dias?',
+    bloco: 'Próximo passo',
+    texto: 'Quanto sua empresa investiria para ter IA aplicada com método?',
     opcoes: [
       { texto: 'Menos de R$ 5 mil',      pontos: 5  },
       { texto: 'R$ 5k a R$ 20k',         pontos: 15 },
@@ -161,11 +169,27 @@ const PERGUNTAS = [
 
 // ─── LÓGICA DE SEGMENTAÇÃO (INTERNA) ─────────
 function calcularTrilha(answers, score) {
-  const faturamento = answers.q1;
-  if (faturamento === 'Até R$ 100 mil/mês') return 'A';
-  if (faturamento === 'Acima de R$ 1M/mês' && score >= 70) return 'C';
+  // Trilha baseada no tamanho da empresa (q3) + score
+  const tamanho = answers.q3;
+  if (tamanho === 'Só eu (solopreneur)' || tamanho === '2 a 10 pessoas') return 'A';
+  if ((tamanho === 'Mais de 50') && score >= 70) return 'C';
   if (score >= 40) return 'B';
   return 'A'; // fallback conservador
+}
+
+// ─── CÁLCULO DE FATURAMENTO PRA RECOMENDAÇÃO DE NÍVEL ─────
+// Mapeamento baseado em tamanho (q3) já que não temos mais q1=faturamento
+function calcularFaturamentoEstimado(answers) {
+  const tamanho = answers.q3 || '';
+  const investimento = answers.q10 || '';
+  // Se disposição de investimento é alta → provavelmente médio/grande porte
+  if (investimento === 'R$ 20k a R$ 60k' || investimento === 'Acima de R$ 60k') {
+    return 'De R$ 500k a R$ 1M/mês'; // → recomenda nivel-2 (R$8k)
+  }
+  if (tamanho === 'Mais de 50' || tamanho === '11 a 50 pessoas') {
+    return 'De R$ 500k a R$ 1M/mês'; // → recomenda nivel-2
+  }
+  return 'Até R$ 100 mil/mês'; // → recomenda nivel-1 (R$97)
 }
 
 // ─── RENDERIZAÇÃO DO QUIZ ─────────────────────
@@ -345,17 +369,26 @@ function montarPayload(nome, whatsapp, email, empresa, cargo) {
     empresa:  empresa,
     cargo:    cargo,
 
-    // Respostas do quiz
-    q1_faturamento:    state.answers.q1  || null,
-    q2_funcionarios:   state.answers.q2  || null,
-    q3_cargo:          state.answers.q3  || null,
-    q4_setor:          state.answers.q4  || null,
-    q5_dor:            state.answers.q5  || null,
-    q6_experiencia_ia: state.answers.q6  || null,
-    q7_sistemas:       state.answers.q7  || null,
-    q8_decisao:        state.answers.q8  || null,
+    // Respostas do quiz (novos campos Fase 2)
+    q1_papel:          state.answers.q1  || null,  // cargo/papel
+    q2_setor:          state.answers.q2  || null,  // setor
+    q3_tamanho:        state.answers.q3  || null,  // tamanho equipe
+    q4_gargalo:        state.answers.q4  || null,  // o que consome mais tempo
+    q5_perda_venda:    state.answers.q5  || null,  // perdeu venda por falta de agilidade
+    q6_decisao:        state.answers.q6  || null,  // como toma decisões
+    q7_experiencia_ia: state.answers.q7  || null,  // experiência com IA
+    q8_travamento:     state.answers.q8  || null,  // o que trava de implementar
+    q9_intencao:       state.answers.q9  || null,  // o que faria se soubesse onde
+    q10_investimento:  state.answers.q10 || null,  // disposição de investimento
+
+    // Campos legados (mantidos pra compatibilidade com n8n) — derivados dos novos
+    q1_faturamento:    calcularFaturamentoEstimado(state.answers),
+    q4_setor:          state.answers.q2  || null,  // setor agora está em q2
+    q5_dor:            state.answers.q4  || null,  // dor/gargalo agora em q4
+    q6_experiencia_ia: state.answers.q7  || null,  // exp. IA agora em q7
+    q7_sistemas:       state.answers.q6  || null,  // decisão/dados agora em q6
+    q8_decisao:        state.answers.q6  || null,
     q9_urgencia:       state.answers.q9  || null,
-    q10_investimento:  state.answers.q10 || null,
 
     // Q11 — campo aberto (Fase 2)
     q11_contexto: state.answers.q11 || '',
@@ -433,16 +466,29 @@ function calcularPrecoDiagnostico(faturamento) {
 
 // ─── NÍVEL RECOMENDADO POR FATURAMENTO (v2) ──────────────────────────────────
 // Substitui calcularPrecoDiagnostico() — não remover a antiga até exibirResultadoV2() testado
-const REGRAS_RECOMENDACAO = {
-  'Até R$ 100 mil/mês':        'nivel-1',
-  'De R$ 100k a R$ 500k/mês':  'nivel-1',
-  'De R$ 500k a R$ 1M/mês':    'nivel-2',
-  'Acima de R$ 1M/mês':        'nivel-2'
-  // nivel-3 (SQUAD) nunca é recomendado automaticamente — sempre por contato direto
-};
-
+// Regras baseadas no tamanho da equipe (q3) + disposição de investimento (q10)
 function calcularNivelRecomendado(faturamento) {
-  const recomendado = REGRAS_RECOMENDACAO[faturamento] || 'nivel-1';
+  // faturamento aqui pode ser o valor direto de q3 (tamanho) ou o estimado
+  const tamanho     = state.answers?.q3  || '';
+  const investimento = state.answers?.q10 || '';
+  const intencao    = state.answers?.q9  || '';
+
+  // Squad: empresa grande + investimento alto
+  // nivel-2: empresa média OU investimento médio/alto OU intenção de contratar
+  // nivel-1: pequena / solopreneur / quer fazer sozinho
+
+  let recomendado = 'nivel-1';
+
+  if (tamanho === 'Mais de 50' || investimento === 'Acima de R$ 60k') {
+    recomendado = 'nivel-2'; // SQUAD fica só por contato
+  } else if (
+    tamanho === '11 a 50 pessoas' ||
+    investimento === 'R$ 20k a R$ 60k' ||
+    investimento === 'R$ 5k a R$ 20k' ||
+    intencao === 'Contrataria alguém pra fazer'
+  ) {
+    recomendado = 'nivel-2';
+  }
   return {
     recomendado,
     niveis: [
