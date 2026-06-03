@@ -7,6 +7,8 @@
 const N8N_WEBHOOK_URL  = 'https://skiante-dev.iaeo.com.br/webhook/Imersaodesenvolvi';
 const N8N_INTENCAO_URL = 'https://skiante-dev.iaeo.com.br/webhook/intencao-caminho';
 const KIWIFY_URL       = 'https://pay.kiwify.com.br/fJCNgjy';
+const SALES_PAGE_URL   = 'https://deploy-lemon-alpha.vercel.app'; // Sales page v6 — lead quente pós-quiz
+const WHATSAPP_URL     = 'https://wa.me/554137952570?text=Ol%C3%A1!%20Vim%20pelo%20Quiz%20IAEO%20e%20tenho%20interesse%20no%20Diagn%C3%B3stico';
 const YOUTUBE_URL      = 'https://www.youtube.com/@thiagoskiante?sub_confirmation=1';
 const Q11_MIN_CHARS    = 20;
 
@@ -417,6 +419,104 @@ async function enviarParaN8n(payload) {
   }
 }
 
+// ─── CÁLCULO DE PREÇO POR FATURAMENTO (legado — mantido por segurança) ──────
+// DEPRECIADA: substituída por calcularNivelRecomendado() abaixo
+function calcularPrecoDiagnostico(faturamento) {
+  const tabela = {
+    'Até R$ 100 mil/mês':        { valor: 'R$ 3.000', detalhe: 'para empresas com faturamento até R$ 100 mil/mês' },
+    'De R$ 100k a R$ 500k/mês':  { valor: 'R$ 5.000', detalhe: 'para empresas de R$ 100k a R$ 500k/mês' },
+    'De R$ 500k a R$ 1M/mês':    { valor: 'R$ 8.000', detalhe: 'para empresas de R$ 500k a R$ 1M/mês' },
+    'Acima de R$ 1M/mês':        { valor: 'R$ 10.000', detalhe: 'para empresas acima de R$ 1M/mês' }
+  };
+  return tabela[faturamento] || { valor: 'Investimento personalizado', detalhe: '(calculado pelo porte da sua empresa)' };
+}
+
+// ─── NÍVEL RECOMENDADO POR FATURAMENTO (v2) ──────────────────────────────────
+// Substitui calcularPrecoDiagnostico() — não remover a antiga até exibirResultadoV2() testado
+const REGRAS_RECOMENDACAO = {
+  'Até R$ 100 mil/mês':        'nivel-1',
+  'De R$ 100k a R$ 500k/mês':  'nivel-1',
+  'De R$ 500k a R$ 1M/mês':    'nivel-2',
+  'Acima de R$ 1M/mês':        'nivel-2'
+  // nivel-3 (SQUAD) nunca é recomendado automaticamente — sempre por contato direto
+};
+
+function calcularNivelRecomendado(faturamento) {
+  const recomendado = REGRAS_RECOMENDACAO[faturamento] || 'nivel-1';
+  return {
+    recomendado,
+    niveis: [
+      {
+        id: 'nivel-1',
+        titulo: 'Auto-Diagnóstico',
+        subtitulo: 'Faça você mesmo',
+        preco: 'R$ 97',
+        cta: 'Quero fazer por conta própria',
+        url: SALES_PAGE_URL,  // → passa pela sales page antes do checkout
+        icone: '🔵',
+        descricao: 'Workbook + Planilha + 5 vídeos + bônus. Acesso vitalício.'
+      },
+      {
+        id: 'nivel-2',
+        titulo: 'Diagnóstico IAEO',
+        subtitulo: 'Faça com a gente — remoto',
+        preco: 'R$ 8.000',
+        cta: 'Quero a IAEO me guiando',
+        url: WHATSAPP_URL,
+        icone: '🟢',
+        descricao: 'Reuniões guiadas online + método completo + garantia de entrega.'
+      },
+      {
+        id: 'nivel-3',
+        titulo: 'Diagnóstico SQUAD',
+        subtitulo: 'Time de especialistas',
+        preco: 'A partir de R$ 25.000',
+        cta: 'Quero falar sobre o SQUAD',
+        url: WHATSAPP_URL,
+        icone: '🔴',
+        descricao: 'Imersão presencial ou híbrida. Deslocamento negociado à parte.'
+      }
+    ]
+  };
+}
+
+// ─── RENDERIZAR CARDS DE NÍVEL (v2) ──────────────────────────────────────────
+function renderizarCardsNiveis(resultado) {
+  const wrapper = document.getElementById('niveis-wrapper');
+  if (!wrapper) return;
+
+  wrapper.innerHTML = resultado.niveis.map(nivel => {
+    const isRecomendado = nivel.id === resultado.recomendado;
+    return `
+      <div class="nivel-card${isRecomendado ? ' nivel-card--recomendado' : ''}" data-nivel="${nivel.id}">
+        ${isRecomendado ? '<div class="nivel-badge-recomendado">⭐ RECOMENDADO PARA VOCÊ</div>' : ''}
+        <div class="nivel-icone">${nivel.icone}</div>
+        <h3 class="nivel-titulo">${nivel.titulo}</h3>
+        <p class="nivel-subtitulo">${nivel.subtitulo}</p>
+        <p class="nivel-descricao">${nivel.descricao}</p>
+        <p class="nivel-preco">${nivel.preco}</p>
+        <a
+          href="${nivel.url}"
+          target="_blank"
+          class="btn ${isRecomendado ? 'btn-primary' : 'btn-secondary'} btn-full nivel-cta"
+          data-nivel-id="${nivel.id}"
+        >
+          ${nivel.cta}
+        </a>
+      </div>
+    `;
+  }).join('');
+
+  // Registrar clique nos caminhos que abrem WhatsApp (intenção de contato)
+  wrapper.querySelectorAll('[data-nivel-id="nivel-2"], [data-nivel-id="nivel-3"]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      if (typeof registrarIntencaoCaminho1 === 'function') {
+        registrarIntencaoCaminho1();
+      }
+    });
+  });
+}
+
 // ─── EXIBIÇÃO DO RESULTADO ────────────────────
 function exibirResultado() {
   const nome    = state.captura?.nome?.split(' ')[0] || 'você';
@@ -429,6 +529,13 @@ function exibirResultado() {
   document.getElementById('resultado-subtitulo').textContent =
     `Com base nas respostas de ${empresa}, identificamos o estágio atual ` +
     `da sua operação e o caminho mais rápido para implementar IA com resultado real.`;
+
+  // Preço dinâmico do Caminho 1 conforme faturamento (q1)
+  const preco = calcularPrecoDiagnostico(state.answers?.q1);
+  const elValor   = document.getElementById('caminho-preco-valor');
+  const elDetalhe = document.getElementById('caminho-preco-detalhe');
+  if (elValor)   elValor.textContent   = preco.valor;
+  if (elDetalhe) elDetalhe.textContent = preco.detalhe;
 
   // Botão Caminho 1 — exibe modal de confirmação + dispara webhook de intenção (Fase 2)
   const btnC1 = document.getElementById('btn-caminho-1');
@@ -456,6 +563,45 @@ function exibirResultado() {
       window.open(KIWIFY_URL, '_blank');
     });
   }
+
+  goTo('resultado');
+}
+
+// ─── EXIBIÇÃO DO RESULTADO v2 (3 caminhos abertos) ───────────────────────────
+function exibirResultadoV2() {
+  const nome    = state.captura?.nome?.split(' ')[0] || 'você';
+  const empresa = state.captura?.empresa || 'sua empresa';
+  const resultado = calcularNivelRecomendado(state.answers?.q1);
+
+  // 1. Título personalizado com nova frase-bandeira
+  const elTitulo = document.getElementById('resultado-titulo');
+  if (elTitulo) {
+    elTitulo.textContent = `${nome}, descobrimos onde a IA vai gerar LUCRO na ${empresa}`;
+  }
+
+  // 2. Subtítulo
+  const elSubtitulo = document.getElementById('resultado-subtitulo');
+  if (elSubtitulo) {
+    elSubtitulo.textContent =
+      `Analisamos seu perfil e identificamos o melhor caminho para ${empresa}. ` +
+      `Você é quem decide — mas temos uma recomendação:`;
+  }
+
+  // 3. Texto de sugestão personalizado
+  const elSugestao = document.getElementById('resultado-sugestao');
+  if (elSugestao) {
+    const nomesNivel = {
+      'nivel-1': 'o Auto-Diagnóstico (R$ 97)',
+      'nivel-2': 'o Diagnóstico IAEO (R$ 8.000)',
+      'nivel-3': 'o Diagnóstico SQUAD'
+    };
+    elSugestao.textContent =
+      `Pelo seu perfil, achamos que ${nomesNivel[resultado.recomendado] || 'o Auto-Diagnóstico'} ` +
+      `faz mais sentido pra você. Mas todos os caminhos estão disponíveis:`;
+  }
+
+  // 4. Renderizar 3 cards
+  renderizarCardsNiveis(resultado);
 
   goTo('resultado');
 }
@@ -513,7 +659,7 @@ document.addEventListener('DOMContentLoaded', function() {
       await enviarParaN8n(payload);
 
       // 7. Exibe resultado (independente do retorno do n8n — ADR-002)
-      exibirResultado();
+      exibirResultadoV2(); // v2: 3 caminhos com recomendação destacada
     });
   }
 

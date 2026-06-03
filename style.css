@@ -843,3 +843,99 @@ body {
     max-width: 760px;
   }
 }
+
+/* =============================================
+   NIVEIS WRAPPER v2 (3 caminhos abertos)
+   Substitui .caminhos-wrapper
+   ============================================= */
+.resultado-sugestao {
+  text-align: center;
+  color: var(--cinza, #6B7280);
+  font-size: 0.95rem;
+  margin: 16px 0 24px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.niveis-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.nivel-card {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.nivel-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.nivel-card--recomendado {
+  border: 2px solid #10B981;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.15);
+}
+
+.nivel-badge-recomendado {
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #10B981;
+  color: white;
+  padding: 4px 14px;
+  border-radius: 100px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.nivel-icone {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.nivel-titulo {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--azul-escuro, #0F1B2D);
+  margin: 0;
+}
+
+.nivel-subtitulo {
+  font-size: 0.8rem;
+  color: #6B7280;
+  margin: 0;
+}
+
+.nivel-descricao {
+  font-size: 0.82rem;
+  color: #4B5563;
+  line-height: 1.5;
+  margin: 0;
+  flex: 1;
+}
+
+.nivel-preco {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--azul-escuro, #0F1B2D);
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .niveis-wrapper {
+    grid-template-columns: 1fr;
+  }
+}

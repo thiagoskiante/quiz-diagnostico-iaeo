@@ -223,61 +223,22 @@
       <div class="resultado-header">
         <div class="resultado-badge">SEU DIAGNÓSTICO</div>
         <h2 class="resultado-title" id="resultado-titulo">
-          Seu diagnóstico está pronto!
+          Descobrimos onde a IA vai gerar LUCRO na sua empresa
         </h2>
         <p class="resultado-subtitle" id="resultado-subtitulo"></p>
-        <p class="resultado-sintese">
-          Sua empresa já tem o perfil e a maturidade necessários para avançar
-          com inteligência artificial aplicada ao negócio.
-          A questão agora é: <strong>como você quer chegar lá?</strong>
-        </p>
       </div>
 
-      <div class="caminhos-wrapper">
-        <!-- Caminho 1 -->
-        <div class="caminho caminho-primary">
-          <div class="caminho-badge">CAMINHO 1</div>
-          <h3 class="caminho-titulo">🤝 DIAGNÓSTICO IAEO</h3>
-          <p class="caminho-desc">
-            Nosso time analisa sua operação e identifica <strong>por onde começar com IA</strong>
-            — qual processo tem menor complexidade, maior ROI e onde a implementação faz sentido real.
-          </p>
-          <p class="caminho-desc">
-            Você recebe um estudo de viabilidade completo antes de investir qualquer coisa em tecnologia.
-          </p>
-          <p class="caminho-preco">
-            <strong>A partir de R$ 3.000</strong>
-            <em style="font-size:0.85rem; font-weight:400;"> (varia por porte e complexidade)</em>
-          </p>
-          <button id="btn-caminho-1" class="btn btn-primary btn-full">
-            Quero o Diagnóstico IAEO
-          </button>
-        </div>
+      <!-- Sugestão personalizada (texto gerado via JS em exibirResultadoV2) -->
+      <p class="resultado-sugestao" id="resultado-sugestao">
+        Temos uma recomendação baseada no seu perfil:
+      </p>
 
-        <div class="caminhos-ou">ou</div>
-
-        <!-- Caminho 2 -->
-        <div class="caminho caminho-secondary">
-          <div class="caminho-badge-sec">CAMINHO 2</div>
-          <h3 class="caminho-titulo">🧭 Você faz por conta própria</h3>
-          <p class="caminho-desc">
-            Auto-Diagnóstico com o mapa completo para você implementar no seu ritmo,
-            com toda a metodologia IAEO.
-          </p>
-          <ul class="caminho-itens">
-            <li>✓ Metodologia completa em PDF</li>
-            <li>✓ Mapa de implementação passo a passo</li>
-            <li>✓ Templates e checklists</li>
-            <li>✓ Acesso vitalício</li>
-          </ul>
-          <p class="caminho-preco">Apenas <strong>R$ 97</strong></p>
-          <button id="btn-caminho-2" class="btn btn-secondary btn-full">
-            Quero fazer eu mesmo — R$97 →
-          </button>
-        </div>
+      <!-- 3 cards de nível (gerados via JS: renderizarCardsNiveis()) -->
+      <div class="niveis-wrapper" id="niveis-wrapper">
+        <!-- Preenchido dinamicamente pelo quiz.js -->
       </div>
 
-      <!-- Modal de confirmação Caminho 1 -->
+      <!-- Modal de confirmação (mantido para compatibilidade) -->
       <div id="modal-caminho1" class="modal-overlay hidden">
         <div class="modal-box">
           <p>✅ Ótimo! Nossa equipe entrará em contato em breve pelo WhatsApp.</p>
