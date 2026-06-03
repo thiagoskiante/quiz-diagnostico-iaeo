@@ -614,15 +614,21 @@ function exibirResultado() {
 }
 
 // ─── EXIBIÇÃO DO RESULTADO v2 (3 caminhos abertos) ───────────────────────────
-function capitalizarPalavras(str) {
-  return str.replace(/\b\w/g, l => l.toUpperCase());
+function capitalizarEmpresa(str) {
+  // Siglas conhecidas ficam em maiúsculo total
+  const siglas = ['iaeo', 'ltda', 'sa', 'me', 'epp', 'mei', 'bi', 'ti', 'cia'];
+  return str.split(' ').map(palavra => {
+    const lower = palavra.toLowerCase();
+    if (siglas.includes(lower)) return palavra.toUpperCase();
+    return palavra.charAt(0).toUpperCase() + palavra.slice(1).toLowerCase();
+  }).join(' ');
 }
 
 function exibirResultadoV2() {
   const nome    = state.captura?.nome?.split(' ')[0] || 'você';
   const empresaRaw = state.captura?.empresa || 'sua empresa';
-  // Capitaliza cada palavra: "iaeo teste" → "Iaeo Teste", "IAEO" → "IAEO"
-  const empresa = capitalizarPalavras(empresaRaw.toLowerCase());
+  // Capitaliza preservando siglas: "iaeo teste" → "IAEO Teste"
+  const empresa = capitalizarEmpresa(empresaRaw);
   const resultado = calcularNivelRecomendado(state.answers?.q1);
 
   // 1. Título personalizado com nova frase-bandeira
